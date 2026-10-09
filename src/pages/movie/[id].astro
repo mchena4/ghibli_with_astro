@@ -1,0 +1,72 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const { id } = Astro.params;
+
+const res = await fetch(`https://ghibliapi.vercel.app/films/${id}`)
+
+const film = await res.json()
+---
+
+
+<Layout title="Pelicula">
+    <a href="/" class="flex items-center gap-2 hover:text-amber-300">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+        </svg>        
+        Volver a la lista de películas
+    </a>
+
+    <h1 class="text-4xl font-bold mt-3">{film.title}</h1>
+
+    <img 
+        src={film.movie_banner} 
+        alt={film.title} 
+        class="mt-4 w-full rounded-xl" 
+    />
+
+    <div class="mt-6 flex flex-row gap-6">
+        <img 
+            transition:name={`img-${id}`} 
+            src={film.image} 
+            alt={film.title} 
+            class="w-48 self-start rounded-xl" 
+            loading="lazy"
+        />
+        
+        <div>
+            <h1 class="text-4xl font-bold">{film.title}</h1>
+        
+            <p class="text-zinc-500">{film.original_title} - {film.original_title_romanised}</p>
+        
+            <dl class="mt-4 grid gap-x-6 gap-y-2 text-sm grid-cols-4 text-zinc-500">
+                <div>
+                    <dt>Año</dt>
+                    <dd>{film.release_date}</dd>
+                </div>
+                <div>
+                    <dt>Duracion</dt>
+                    <dd>{film.running_time} min</dd>
+                </div>
+                <div>
+                    <dt>Director</dt>
+                    <dd>{film.director}</dd>
+                </div>
+                <div class="text-yellow-500/80">
+                    <dt>Rotten Tomatoes Score</dt>
+                    <dd class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                            <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                        </svg>
+                        {film.rt_score}
+                    </dd>
+                </div>
+            </dl>
+
+            <p class="mt-4 text-zinc-400">{film.description}</p>
+        </div>
+    </div>
+
+</Layout>
+
+

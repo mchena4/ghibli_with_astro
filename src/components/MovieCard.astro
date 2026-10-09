@@ -1,0 +1,25 @@
+---
+import astroLogo from '../assets/astro.svg';
+import background from '../assets/background.svg';
+
+const {id, title, image, release_date, rt_score} = Astro.props;
+---
+
+
+<a href={`movie/${id}`} class="group block overflow-hidden rounded-xl bg-zinc-900 cursor-pointer transition-all hover:scale-101">
+	<img
+		transition:name={`img-${id}`}
+		src={image}
+		alt={image}
+		loading="lazy"
+	>
+
+	<div class="p-3">
+		<h2 class="font-semibold group-hover:text-amber-400">
+			{title}
+		</h2>
+		<p class="text-sm text-zinc-400">
+			{release_date}
+		</p>
+	</div>
+</a>

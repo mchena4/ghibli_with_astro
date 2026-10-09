@@ -1,11 +1,25 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import MovieCard from '../components/MovieCard.astro';
 import Layout from '../layouts/Layout.astro';
+import SearchBar from '../components/SearchBar'
+import RandomMovie from '../components/RandomMovie.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const res = await fetch("https://ghibliapi.vercel.app/films")
+
+const films: any[] = await res.json()
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Studio Ghibli Movies" >
+	<h1 class="mb-6 text-3xl font-bold">Movies</h1>
+
+	<h2 class="mb-6 text-2xl">Your movie for today!</h2>
+
+	<RandomMovie server:defer>
+		<div slot="fallback" class="mb-8 h-48 bg-zinc-800 animate-pulse rounded-2xl"></div>
+	</RandomMovie>
+	
+	<SearchBar films={films} client:load>
+
+	</SearchBar>
+
 </Layout>

@@ -1,0 +1,24 @@
+---
+const res = await fetch("https://ghibliapi.vercel.app/films")
+
+const films: any[] = await res.json()
+
+const film = films[Math.floor(Math.random() * films.length)]
+---
+
+<a 
+    href={`movie/${film.id}`}
+    class="relative mb-8 block overflow-hidden rounded-2xl"
+>
+    <img src={film.movie_banner} alt={film.title} 
+    class="h-100 w-full object-cover opacity-60"
+    >
+    <div class="absolute inset-0 flex flex-col justify-end bg-linear-to-t from-zinc-950 p-4">
+        <p class="2-text-2xl font-bold">
+            {film.title}
+        </p>
+        <p class="line-clamp-2 max-w-2xl text-sm text-slate-300">
+            {film.description}
+        </p>
+    </div>
+</a>
