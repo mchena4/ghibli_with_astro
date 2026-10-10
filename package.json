@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "test": "vitest",
     "astro": "astro"
   },
   "dependencies": {
@@ -20,7 +21,9 @@
     "astro": "^7.3.5",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "vitest": "^4.1.11",
+    "zod": "^4.6.5"
   },
   "allowScripts": {
     "esbuild": true
